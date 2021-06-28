@@ -67,26 +67,6 @@ def tiebreak(cards, reason):
         
         return sorted(doubledict.items())[-1][1], reason
     
-#    if reason=='max':
-#        maxval = 0
-#        maxplayerdict1 = {}
-#        for key, val in cards.items():
-#            if val[2][0] >= maxval:
-#                maxval=val[2][0]
-#                maxplayerdict1[key]=val
-#
-#        if len(maxplayerdict1) > 1:
-#            maxval = 0
-#            maxplayerdict2 = {}
-#            for key, val in maxplayerdict1.items():
-#                if val[1][0] >= maxval:
-#                    maxval=val[1][0]
-#                    maxplayerdict2[key]=val
-#            
-#            return list(maxplayerdict2.keys())[0], reason
-#        else:
-#            return list(maxplayerdict1.keys())[0] , reason    
-#
 
     tot = {}
     for key, val in cards.items():
