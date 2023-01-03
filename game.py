@@ -18,10 +18,8 @@ def main():
     """
     deck = init_deck()
     play = deal(deck,10)
-    # print_play(play)
     print(play_bid(play))
-    # winner, reason = select_winner(play)
-    # print('Player {:<d} wins: {:s}.'.format(winner,reason))
+    
 
 
 def init_deck():
