@@ -157,7 +157,7 @@ def play_bid(play):
     while True:
                 
         if len(play) > 2:
-            print("\nCuurent bid for : {cur_bid} $ and Total Bid is {total} $".
+            print("\nCurrent bid for : {cur_bid} $ and Total Bid is {total} $".
             format(cur_bid = bid,total = total_bid))
 
             for i in play:
@@ -167,14 +167,14 @@ def play_bid(play):
                     return "You win with {}$ everyone else Folded".format(total_bid)
 
                 print_play(play,i)
-                choice = input("Press 'F' to Fold or 'B' to Bid : ")
+                choice = input("Press 'f' to Fold or 'b' to Bid : ")
 
-                if choice == "F" :
+                if choice == "f" :
                     keys_to_pop.append(i)
                     folded += 1
                     print("Player {} Folded".format(i))
                 
-                elif choice == "B" :
+                elif choice == "b" :
                     total_bid += bid
                     print("Player {player} bidded; Total bid increased to {total} $ ".
                     format(player = i, total = total_bid))
@@ -193,17 +193,17 @@ def play_bid(play):
                 print_play(play,i)
                 choice = input("Press 'F' to Fold or 'B' to Bid or 'S' to Bid and Show : ")
 
-                if choice == "F":
+                if choice == "f":
                     keys_to_pop.append(i)
                     print("Player {} Folded".format(i))
                     break
 
-                elif choice == "S" :
+                elif choice == "s" :
                     winner, reason = select_winner(play)
                     Result = "Player {:<d} wins: {:s} with total amount {:d}$".format(winner,reason, total_bid)
                     return Result
 
-                elif choice == "B" :
+                elif choice == "b" :
                     total_bid += bid
                     print("Player {player} bidded; Total bid increased to {total} $ ".
                     format(player = i, total = total_bid))
