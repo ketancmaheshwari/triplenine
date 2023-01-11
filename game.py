@@ -18,9 +18,8 @@ def main():
     """
     deck = init_deck()
     play = deal(deck,10)
-    print_play(play)
-    winner, reason = select_winner(play)
-    print('Player {:<d} wins: {:s}.'.format(winner,reason))
+    print(play_bid(play))
+    
 
 
 def init_deck():
@@ -131,7 +130,7 @@ def select_winner(play):
     return maxkey, "max"
 
 
-def print_play(play):
+def print_play(play,x):
     display = {
         11: 'J',
         12: 'Q',
@@ -139,11 +138,84 @@ def print_play(play):
         14: 'A',
     }
 
-    for k,v in play.items():
-        print('{:2d}. {:>2s}{} {:>2s}{} {:>2s}{}'.\
-        format(k, display.get(v[0][0], str(v[0][0])), v[0][1],\
-               display.get(v[1][0], str(v[1][0])), v[1][1],\
-               display.get(v[2][0], str(v[2][0])),v[2][1]),end="\n\n")
+    v = play.get(x)
+    print('{:>2s}{} {:>2s}{} {:>2s}{}'.\
+    format(display.get(v[0][0], str(v[0][0])), v[0][1],\
+            display.get(v[1][0], str(v[1][0])), v[1][1],\
+            display.get(v[2][0], str(v[2][0])),v[2][1]),end="\n\n")
+
+
+"""
+The logic for bidding and continuing gameplay stays here
+"""
+def play_bid(play):
+    bid = 1
+    total_bid = 0
+    folded = 0
+    keys_to_pop = []
+
+    while True:
+                
+        if len(play) > 2:
+            print("\nCuurent bid for : {cur_bid} $ and Total Bid is {total} $".
+            format(cur_bid = bid,total = total_bid))
+
+            for i in play:
+                print("\nplayer {}'s turn: \n  ".format(i))
+
+                if folded == 9:
+                    return "You win with {}$ everyone else Folded".format(total_bid)
+
+                print_play(play,i)
+                choice = input("Press 'F' to Fold or 'B' to Bid : ")
+
+                if choice == "F" :
+                    keys_to_pop.append(i)
+                    folded += 1
+                    print("Player {} Folded".format(i))
+                
+                elif choice == "B" :
+                    total_bid += bid
+                    print("Player {player} bidded; Total bid increased to {total} $ ".
+                    format(player = i, total = total_bid))
+
+        else:
+            if len(play) == 1:
+                for i in play:
+                    return "Player {} Won with total amount {}$".format(i, total_bid)
+
+            print("Only two player's left")
+            print("\nCuurent bid for : {cur_bid} $ and Total Bid is {total} $".
+            format(cur_bid = bid,total = total_bid))
+
+            for i in play:
+                print("\nplayer {}'s turn: \n  ".format(i))
+                print_play(play,i)
+                choice = input("Press 'F' to Fold or 'B' to Bid or 'S' to Bid and Show : ")
+
+                if choice == "F":
+                    keys_to_pop.append(i)
+                    print("Player {} Folded".format(i))
+                    break
+
+                elif choice == "S" :
+                    winner, reason = select_winner(play)
+                    Result = "Player {:<d} wins: {:s} with total amount {:d}$".format(winner,reason, total_bid)
+                    return Result
+
+                elif choice == "B" :
+                    total_bid += bid
+                    print("Player {player} bidded; Total bid increased to {total} $ ".
+                    format(player = i, total = total_bid))
+                    
+        for i in keys_to_pop:
+            play.pop(i)
+        keys_to_pop = []
+        bid += 1
+
+    while(True):
+        choice = input()
+
 
 if __name__ == '__main__':
     main()
